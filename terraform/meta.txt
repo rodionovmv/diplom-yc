@@ -1,0 +1,16 @@
+#cloud-config
+# https://cloudinit.readthedocs.io/en/latest/topics/examples.html
+users:
+  - name: vagrant
+    groups: sudo
+    shell: /bin/bash
+    sudo: ['ALL=(ALL) NOPASSWD:ALL']
+    ssh_authorized_keys:
+      - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDlLoQ0uvrELNnkam5ZMnC0NVh5zarkSWQA/C4yWyoZgG/GzvkyKsGY89rnrrDBbjowCq8Zch6+/dBcd8yCfdgFMfN0LsPzH4fEDQSZFhj8djsBvrpwKqdOpPyY8y3vX3vVxEZGAPb72apNsnuN4R8iQt2gYvkQZB2ZGk67oInsRY8wVu7OyERioUCReRhcpTx43oSe1VmnBbeXi0MCKEvS7CCNgW608XAmavx084wXGLodeVGqlJz7wZeloHfsKMulB8ke1WdPA8wvNhTdg99u7OS6oRsFN8LWulbZ+khc9aR0mMtr8n5dlm3O/NTHgiIuDGO0GpLO0qSO/a58ZcQx vagrant@server1
+  - name: redhat
+    gecos: Red Hat
+    groups: sudo
+    shell: /bin/bash
+    sudo: ['ALL=(ALL) NOPASSWD:ALL']
+    lock_passwd: false
+    passwd: $6$rounds=4096$MBb/NCQbmEm$hF4O0kZ3RxdoGsiIZh5kzo1JLGvao2ZXn3FwOQvUbHfesZeQK4.eISzTfCaQ1vuQdVLbY.WvdgFP8XhwMO/uu.

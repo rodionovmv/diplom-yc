@@ -1,0 +1,57 @@
+---
+#- name: Add Go repository
+#  apt_repository: repo='ppa:longsleep/golang-backports'
+
+#- name: Install Go
+#  action: apt pkg=golang-go state=present update_cache=true
+
+- name: Install git
+  action: apt pkg=git state=present update_cache=true
+
+- name: install nginx configuration
+  template:
+    src: wordpress.conf
+    dest: /etc/nginx/sites-available/wordpress.conf
+  notify: restart nginx
+
+- name: activate site configuration
+  file:
+    src: '/etc/nginx/sites-available/wordpress.conf'
+    dest: '/etc/nginx/sites-enabled/wordpress.conf'
+    state: 'link'
+
+- name: download WordPress
+  get_url:
+    url: "{{ download_url }}"
+    dest: "/tmp/latest.tar.gz"
+
+- name: creating directory for WordPress
+  file:
+    path: "{{ wpdirectory }}"
+    state: "directory"
+    owner: "www-data"
+    group: "www-data"
+
+- name: unpack WordPress installation
+  shell: "tar xvfz /tmp/latest.tar.gz -C {{ wpdirectory }} && chown -R www-data:www-data {{ wpdirectory }}"
+
+- name: install wordpress configuration
+  template:
+    src: wp-config.php
+    dest: /var/www/wordpress/wp-config.php
+
+- name: copy gitignore
+  template:
+    src: .gitignore
+    dest: /var/www/wordpress/.gitignore
+
+- name: wordpress php
+  lineinfile:
+    path: /var/www/wordpress/wp-settings.php
+    line: define( 'WP_SITEURL', 'https://rodionovm.ru' ); define( 'WP_HOME', 'https://rodionovm.ru' );
+
+- name: chmod to www-data on wordpress dir
+  shell: "chown -R www-data:www-data {{ wpdirectory }}"
+
+#- name: wordpress_exporter
+#  shell: "go get github.com/kotsis/wordpress_exporter && ~/go/bin/wordpress_exporter -wpconfig=/var/www/wordpress"

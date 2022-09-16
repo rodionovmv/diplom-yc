@@ -1,0 +1,36 @@
+[nginx]
+rodionovm.ru  letsencrypt_email=rodionovm85@gmail.com domain_name=rodionovm.ru
+
+[mysql]
+db01.rodionovm.ru mysql_server_id='1' mysql_replication_role='master'
+db02.rodionovm.ru mysql_server_id='2' mysql_replication_role='slave'
+
+[app]
+app.rodionovm.ru
+
+[gitlab]
+gitlab.rodionovm.ru
+
+[runner]
+runner.rodionovm.ru
+
+[monitoring]
+monitoring.rodionovm.ru
+
+[proxy]
+rodionovm.ru
+
+[mysql:vars]
+ansible_ssh_common_args='-o ProxyCommand="ssh -W %h:%p -q vagrant@rodionovm.ru"'
+
+[app:vars]
+ansible_ssh_common_args='-o ProxyCommand="ssh -W %h:%p -q vagrant@rodionovm.ru"'
+
+[monitoring:vars]
+ansible_ssh_common_args='-o ProxyCommand="ssh -W %h:%p -q vagrant@rodionovm.ru"'
+
+[gitlab:vars]
+ansible_ssh_common_args='-o ProxyCommand="ssh -W %h:%p -q vagrant@rodionovm.ru"'
+
+[runner:vars]
+ansible_ssh_common_args='-o ProxyCommand="ssh -W %h:%p -q vagrant@rodionovm.ru"'

@@ -1,0 +1,16 @@
+- hosts: mysql
+  gather_facts: true
+  become:
+    true
+  become_method:
+    sudo
+  become_user:
+    root
+  remote_user:
+    vagrant
+  roles:
+   - install_mysql
+  
+  environment:
+     http_proxy: http://rodionovm.ru:8118
+     https_proxy: http://rodionovm.ru:8118
