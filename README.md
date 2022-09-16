@@ -2281,3 +2281,4 @@ monitoring.rodionovm.ru    : ok=28   changed=23   unreachable=0    failed=0    s
 
 Ответ: 
 
+https://github.com/rodionovmv/diplom-yc
